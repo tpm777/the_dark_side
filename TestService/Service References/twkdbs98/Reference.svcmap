@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="635d0c4b-afa2-4a96-95df-762429cb8302" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CoreService.wsdl" MetadataType="Wsdl" ID="a4d69fe7-cda4-4fca-936d-512bb9b1929b" SourceId="1" SourceUrl="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2?wsdl" />
+    <MetadataFile FileName="WWTSServiceAppV2.xsd" MetadataType="Schema" ID="5190dadb-430c-4a35-bc8f-2b770c305f00" SourceId="1" SourceUrl="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2?xsd=xsd0" />
+    <MetadataFile FileName="WWTSServiceAppV21.xsd" MetadataType="Schema" ID="e6e4cfb4-2e9e-408f-90a6-a45306e6d39d" SourceId="1" SourceUrl="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2?xsd=xsd1" />
+    <MetadataFile FileName="WWTSServiceAppV22.xsd" MetadataType="Schema" ID="bdb8f95d-d79d-4358-af97-3af969f11aeb" SourceId="1" SourceUrl="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2?xsd=xsd2" />
+    <MetadataFile FileName="WWTSServiceAppV23.xsd" MetadataType="Schema" ID="72a4ae70-c182-485c-9452-19710b5991dc" SourceId="1" SourceUrl="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2?xsd=xsd3" />
+    <MetadataFile FileName="WWTSServiceAppV24.xsd" MetadataType="Schema" ID="5bfcccae-6bea-4f72-8a89-23ca55f3d7c6" SourceId="1" SourceUrl="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2?xsd=xsd4" />
+    <MetadataFile FileName="WWTSServiceAppV25.xsd" MetadataType="Schema" ID="2fb78a98-9331-4992-9a09-2253280be6ab" SourceId="1" SourceUrl="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2?xsd=xsd5" />
+    <MetadataFile FileName="WWTSServiceAppV2.disco" MetadataType="Disco" ID="1e074beb-12ef-42e1-a78f-0a2c05aaee6d" SourceId="1" SourceUrl="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

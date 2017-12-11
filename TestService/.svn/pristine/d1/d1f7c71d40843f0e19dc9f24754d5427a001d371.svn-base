@@ -1,0 +1,77 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+WWTS.Aspects
+</name>
+</assembly>
+<members>
+<member name="P:WWTS.Aspects.Factory.ExceptionFactory.AppExceptionManager">
+ <summary>
+ Property to get set exception manager instance
+ </summary>
+</member>
+<member name="M:WWTS.Aspects.Factory.ExceptionFactory.InitializeExceptionAopFramework">
+ <summary>
+ Method to initialize the enterprise library exception handler instance under the Aop
+ </summary>
+</member>
+<member name="M:WWTS.Aspects.Factory.LogTraceFactory.LogAsync(System.String,WWTS.Aspects.Enums.LogTraceCategoryNames)">
+ <summary>
+ Method to log messages with log category mentioned
+ </summary>
+ <param name="message">message to log</param>
+ <param name="category">log category</param>
+</member>
+<member name="M:WWTS.Aspects.Factory.LogTraceFactory.WriteLogWithCategory(System.String,WWTS.Aspects.Enums.LogTraceCategoryNames)">
+ <summary>
+ Method to write log information on the basis of category and message provided
+ </summary>
+ <param name="logMessage">log message</param>
+ <param name="category">log category</param>
+</member>
+<member name="M:WWTS.Aspects.Factory.LogTraceFactory.LogDefinitionWithCategoryCompletedCallBack(System.IAsyncResult)">
+ <summary>
+ Method to handle the log with category completed call back method
+ </summary>
+ <param name="result">result obtained</param>
+</member>
+<member name="T:WWTS.Aspects.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:WWTS.Aspects.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:WWTS.Aspects.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="M:WWTS.Aspects.Utils.JsonContentMapper.GetMessageFormatForContentType(System.String)">
+ <summary>
+ Method to override message format for content type in Json services
+ </summary>
+ <param name="contentType">content type</param>
+ <returns>returns json format</returns>
+</member>
+<member name="M:WWTS.Aspects.Utils.XmlTextSerializer.GetAppSettings(System.String)">
+ <summary>
+ Method to get the Application Configuration Settings value using key name of settings
+ </summary>
+ <param name="key">string Key</param>
+ <returns>returns application settings value</returns>
+</member>
+<member name="M:WWTS.Aspects.Utils.XmlTextSerializer.GetAppSettings(WWTS.Aspects.Enums.ConfigKeys)">
+ <summary>
+ Method to get the Application Configuration Settings value using key name of settings
+ </summary>
+ <param name="key">config key name enum</param>
+ <returns>returns application settings value</returns>
+</member>
+</members>
+</doc>

@@ -1,0 +1,147 @@
+﻿Imports System.ServiceModel.Description
+Imports System.Xml
+
+Public Class WWTSWebServiceHost
+    Inherits ServiceHost
+    ''' <summary>
+    ''' Gets the URI for the REST endpoint.
+    ''' </summary>
+    Public Property RestUri() As String
+        Get
+            Return m_RestUri
+        End Get
+        Private Set(value As String)
+            m_RestUri = value
+        End Set
+    End Property
+    Private m_RestUri As String
+
+    ''' <summary>
+    ''' Gets the URI for the SOAP endpoint.
+    ''' </summary>
+    Public Property SoapUri() As String
+        Get
+            Return m_SoapUri
+        End Get
+        Private Set(value As String)
+            m_SoapUri = value
+        End Set
+    End Property
+    Private m_SoapUri As String
+
+    ''' <summary>
+    ''' Initializes a new instance of the <see cref="WebServiceHost"/> class.
+    ''' </summary>
+    ''' <param name="baseAddresses">The base addresses.</param>
+    Public Sub New(ParamArray baseAddresses As Uri())
+        MyBase.New(GetType(CoreService), baseAddresses)
+        Me.AddServiceRestEndpoint()
+        Me.AddServiceSoapEndpoint()
+        Me.AddServiceMetadataBehavior()
+        Me.AddServiceDebugBehavior()
+    End Sub
+
+    Protected Overrides Sub OnOpened()
+        MyBase.OnOpened()
+    End Sub
+
+    ''' <summary>
+    ''' Creates the rest endpoint and configures the binding and the webHttp behavior.
+    ''' </summary>
+    Private Sub AddServiceRestEndpoint()
+        Dim webBinding As New WebHttpBinding With {
+            .CloseTimeout = TimeSpan.FromMinutes(10), _
+         .OpenTimeout = TimeSpan.FromMinutes(10), _
+         .SendTimeout = TimeSpan.FromMinutes(10), _
+         .MaxReceivedMessageSize = Integer.MaxValue, _
+         .MaxBufferPoolSize = Integer.MaxValue, _
+         .ReaderQuotas = New XmlDictionaryReaderQuotas() With { _
+             .MaxDepth = Integer.MaxValue, _
+             .MaxStringContentLength = Integer.MaxValue, _
+             .MaxArrayLength = Integer.MaxValue, _
+             .MaxBytesPerRead = Integer.MaxValue, _
+             .MaxNameTableCharCount = Integer.MaxValue _
+        } _
+    }
+
+        If Me.IsSecureAddress() Then
+            webBinding.Security = New WebHttpSecurity() With { _
+                 .Mode = WebHttpSecurityMode.Transport _
+            }
+        End If
+
+        Dim endpoint As ServiceEndpoint = Me.AddServiceEndpoint(GetType(IDashSumm2Service), webBinding, "REST")
+        endpoint.Behaviors.Add(New WebHttpBehavior() With { _
+             .HelpEnabled = True, _
+             .DefaultBodyStyle = System.ServiceModel.Web.WebMessageBodyStyle.Bare, _
+             .DefaultOutgoingResponseFormat = System.ServiceModel.Web.WebMessageFormat.Json _
+        })
+
+        Me.RestUri = endpoint.Address.Uri.AbsoluteUri
+    End Sub
+
+    ''' <summary>
+    ''' Creates the SOAP endpoint and configures the binding and the reader quotas.
+    ''' </summary>
+    Private Sub AddServiceSoapEndpoint()
+        Dim soapBinding As New BasicHttpBinding() With {
+             .CloseTimeout = TimeSpan.FromMinutes(10), _
+             .OpenTimeout = TimeSpan.FromMinutes(10), _
+             .SendTimeout = TimeSpan.FromMinutes(10), _
+             .MaxReceivedMessageSize = Integer.MaxValue, _
+             .MaxBufferPoolSize = Integer.MaxValue, _
+             .ReaderQuotas = New XmlDictionaryReaderQuotas() With { _
+                 .MaxDepth = Integer.MaxValue, _
+                 .MaxStringContentLength = Integer.MaxValue, _
+                 .MaxArrayLength = Integer.MaxValue, _
+                 .MaxBytesPerRead = Integer.MaxValue, _
+                 .MaxNameTableCharCount = Integer.MaxValue _
+            } _
+        }
+
+        If Me.IsSecureAddress() Then
+            soapBinding.Security = New BasicHttpSecurity() With { _
+                 .Mode = BasicHttpSecurityMode.Transport _
+            }
+        End If
+
+        Dim endpoint As ServiceEndpoint = Me.AddServiceEndpoint(GetType(IDashSumm2Service), soapBinding, "SOAP")
+
+        Me.SoapUri = endpoint.Address.Uri.AbsoluteUri
+    End Sub
+
+    ''' <summary>
+    ''' Adds the service metadata behavior for client creation.
+    ''' </summary>
+    Private Sub AddServiceMetadataBehavior()
+        Dim metadataBehavior = New ServiceMetadataBehavior()
+        If Me.IsSecureAddress() Then
+            metadataBehavior.HttpsGetEnabled = True
+        Else
+            metadataBehavior.HttpGetEnabled = True
+        End If
+
+        Me.Description.Behaviors.Add(metadataBehavior)
+    End Sub
+
+    ''' <summary>
+    ''' Adds the service debug behavior for exception messages in the client.
+    ''' </summary>
+    Private Sub AddServiceDebugBehavior()
+        Dim behavior = Me.Description.Behaviors.Find(Of ServiceDebugBehavior)()
+        If behavior Is Nothing Then
+            behavior = New ServiceDebugBehavior()
+            Me.Description.Behaviors.Add(behavior)
+        End If
+
+        behavior.IncludeExceptionDetailInFaults = True
+    End Sub
+
+    ''' <summary>
+    ''' Returns true when .
+    ''' </summary>
+    Private Function IsSecureAddress() As Boolean
+        Return Me.BaseAddresses.Any(Function(f) f.Scheme = Uri.UriSchemeHttps)
+    End Function
+
+End Class

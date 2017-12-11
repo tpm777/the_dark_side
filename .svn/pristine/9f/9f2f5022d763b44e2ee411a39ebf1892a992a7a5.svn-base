@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<appSettings>
+  <add key="ServiceUrl" value="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2"/>
+  <!-- <add key="ServiceUrl" value="http://193.168.0.81/WWTSServiceApp"/>-->
+  <add key="TraceRESTCalls" value="TRUE"/>
+  <add key="TraceRESTCallsLogFilePath" value="c:\temp\DashSumm2API.log"/>
+</appSettings>
+

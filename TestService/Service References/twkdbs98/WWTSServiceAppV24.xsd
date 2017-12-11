@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WWTS.Data" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WWTS.Data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://twkdbs98.ad.wwts.com/WWTSServiceAppV2?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/WWTS.Data.Model" />
+  <xs:complexType name="ColsDataResponse">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="{0}Response" Namespace="http://schemas.datacontract.org/2004/07/WWTS.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ColsData" Namespace="http://schemas.datacontract.org/2004/07/WWTS.Data.Model" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WWTS.Data.Model" minOccurs="0" name="Results" nillable="true" type="q1:ArrayOfColsData" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WWTS.Data.Model" minOccurs="0" name="SingleResult" nillable="true" type="q2:ColsData" />
+          <xs:element minOccurs="0" name="TotalRecordCount" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ColsDataResponse" nillable="true" type="tns:ColsDataResponse" />
+  <xs:complexType name="ResponseBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsSuccess" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RC" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponseBase" nillable="true" type="tns:ResponseBase" />
+</xs:schema>

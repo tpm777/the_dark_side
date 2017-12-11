@@ -1,0 +1,56 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+WWTS.ServiceApp
+</name>
+</assembly>
+<members>
+<member name="M:WWTS.ServiceApp.AsyncBootstrapper.#ctor">
+ <summary>
+ Initializes a new instance of the <see cref="T:WWTS.ServiceApp.AsyncBootstrapper"/> class.
+ </summary>
+</member>
+<member name="P:WWTS.ServiceApp.WWTSWebServiceHost.RestUri">
+ <summary>
+ Gets the URI for the REST endpoint.
+ </summary>
+</member>
+<member name="P:WWTS.ServiceApp.WWTSWebServiceHost.SoapUri">
+ <summary>
+ Gets the URI for the SOAP endpoint.
+ </summary>
+</member>
+<member name="M:WWTS.ServiceApp.WWTSWebServiceHost.#ctor(System.Uri[])">
+ <summary>
+ Initializes a new instance of the <see cref="T:System.ServiceModel.Web.WebServiceHost"/> class.
+ </summary>
+ <param name="baseAddresses">The base addresses.</param>
+</member>
+<member name="M:WWTS.ServiceApp.WWTSWebServiceHost.AddServiceRestEndpoint">
+ <summary>
+ Creates the rest endpoint and configures the binding and the webHttp behavior.
+ </summary>
+</member>
+<member name="M:WWTS.ServiceApp.WWTSWebServiceHost.AddServiceSoapEndpoint">
+ <summary>
+ Creates the SOAP endpoint and configures the binding and the reader quotas.
+ </summary>
+</member>
+<member name="M:WWTS.ServiceApp.WWTSWebServiceHost.AddServiceMetadataBehavior">
+ <summary>
+ Adds the service metadata behavior for client creation.
+ </summary>
+</member>
+<member name="M:WWTS.ServiceApp.WWTSWebServiceHost.AddServiceDebugBehavior">
+ <summary>
+ Adds the service debug behavior for exception messages in the client.
+ </summary>
+</member>
+<member name="M:WWTS.ServiceApp.WWTSWebServiceHost.IsSecureAddress">
+ <summary>
+ Returns true when .
+ </summary>
+</member>
+</members>
+</doc>

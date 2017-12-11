@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<repositories>
+  <repository path="..\WWTC.IocEngine\packages.config" />
+  <repository path="..\WWTS.Aspects\packages.config" />
+  <repository path="..\WWTS.BackgroundJob\packages.config" />
+  <repository path="..\WWTS.Business\packages.config" />
+  <repository path="..\WWTS.DataEngine\packages.config" />
+  <repository path="..\WWTS.Repository\packages.config" />
+  <repository path="..\WWTS.ServiceApp\packages.config" />
+</repositories>

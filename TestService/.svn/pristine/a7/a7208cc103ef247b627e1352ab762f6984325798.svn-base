@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ebf274e3-48ae-4936-b9f2-59e0919ccd6b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/WWTS.ServiceApp/Coreservice.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CoreService.xsd" MetadataType="Schema" ID="c3d1cb49-baa9-4934-9512-3c9b0f42e9d4" SourceId="1" SourceUrl="http://localhost/WWTS.ServiceApp/CoreService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CoreService1.xsd" MetadataType="Schema" ID="fe5588a3-00c7-405c-95e0-b334c2b433de" SourceId="1" SourceUrl="http://localhost/WWTS.ServiceApp/CoreService.svc?xsd=xsd4" />
+    <MetadataFile FileName="CoreService2.xsd" MetadataType="Schema" ID="12815b26-a915-4693-81f9-456c7c3ea1aa" SourceId="1" SourceUrl="http://localhost/WWTS.ServiceApp/CoreService.svc?xsd=xsd5" />
+    <MetadataFile FileName="CoreService3.xsd" MetadataType="Schema" ID="cc480a93-e6aa-41f2-8f4c-62a8d4c4363a" SourceId="1" SourceUrl="http://localhost/WWTS.ServiceApp/CoreService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CoreService4.xsd" MetadataType="Schema" ID="6374906f-93c7-4b5c-a377-78ae9b3c7ad3" SourceId="1" SourceUrl="http://localhost/WWTS.ServiceApp/CoreService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CoreService.wsdl" MetadataType="Wsdl" ID="8e2bbb8f-a6b7-4e06-8a30-52c147864b74" SourceId="1" SourceUrl="http://localhost/WWTS.ServiceApp/Coreservice.svc" />
+    <MetadataFile FileName="CoreService5.xsd" MetadataType="Schema" ID="8077b446-a2a0-4275-8024-c49da2152c0d" SourceId="1" SourceUrl="http://localhost/WWTS.ServiceApp/CoreService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

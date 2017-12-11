@@ -1,0 +1,403 @@
+﻿Imports System.ServiceModel.Activation
+Imports Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF
+Imports WWTS.Data
+Imports WWTS.Data.Model
+Imports WWTS.Aspects.Enums
+Imports WWTS.Aspects.Utils
+Imports System.Data.SqlClient
+
+<AspNetCompatibilityRequirements(RequirementsMode:=AspNetCompatibilityRequirementsMode.Allowed)> _
+<ExceptionShielding("ServiceExceptionPolicy")> _
+Partial Public Class CoreService
+    Inherits ServiceBase
+    Implements IDashSumm2Service
+    Dim CallResults As List(Of CallResult)
+    Dim ResponseData As New ColsData()
+    Private mOrgType As OrgType = OrgType.OrgTypeNone
+    Private mDashType As String = "Ds"
+    Private mOrgFilterType As OrgFilterType = OrgFilterType.OrgFilterTypeNone
+    Private mOrgFilterList As String = String.Empty
+    Private mCustAssoc As String = String.Empty
+    Private mVendorCode As String = String.Empty
+
+    Private CustomerCamparatorName As String = String.Empty
+    Private CustomerCamparatorValue As String = String.Empty
+    Private SubDivisionCamparatorName As String = String.Empty
+    Private SubDivisionCamparatorValue As String = String.Empty
+    Private WorkOrderType As String = String.Empty
+
+    Private mSrchCustAssoc As String = String.Empty
+    Private mTs1 As TimeSpan
+    Private mTs2 As TimeSpan
+    Public RC As Integer
+    Public ErrorMsg As String
+    Private mNoCcTime As String = "10:00"
+    Public g_astrCallTypesDPL() As String
+
+    Dim Form1 As Object
+
+    Public Sub New()
+    End Sub
+
+    Public Function GetSummaryDataSample(ByVal filterData As FilterData) As JsonResponse(Of ColsData) Implements IDashSumm2Service.GetSummaryDataSample
+        Dim response As New JsonResponse(Of ColsData)()
+        Dim customerData As New ColsData()
+
+        customerData.CustomerPercentage = 10.0
+        customerData.Rows = filterData.Rows.[Select](Function(E) New RowData() With { _
+           .Id = E, _
+           .CallCount = 0 _
+        }).ToList()
+        response.SingleResult = customerData
+        response.IsSuccess = True
+        Return response
+    End Function
+
+    Public Function GetSummaryData(ByVal filterData As FilterData) As JsonResponse(Of ColsData) Implements IDashSumm2Service.GetSummaryData
+
+        Dim response As New JsonResponse(Of ColsData)()
+        Dim sz As String = String.Empty
+
+        Try
+
+            If filterData Is Nothing Then
+                response.IsSuccess = False
+                response.RC = 16
+                response.Message = "Invalid Data:"
+                Return response
+            End If
+
+            Select Case filterData.OrgType.ToLower
+                Case "main"
+                    mOrgType = OrgType.OrgTypeMain
+                Case Else
+                    mOrgType = OrgType.OrgTypeNone
+            End Select
+
+            If (mOrgType = OrgType.OrgTypeNone) Then
+                response.IsSuccess = False
+                response.RC = 16
+                response.Message = "Invalid OrgType - " & filterData.OrgType
+                Return response
+            End If
+
+            mDashType &= SetLeadingCap(filterData.OrgType.ToLower)
+
+            Select Case filterData.OrgFilterType.ToLower
+                Case "b"
+                    mOrgFilterType = OrgFilterType.OrgFilterTypeBranch
+                    mOrgFilterList = filterData.OrgBranchList
+                    mDashType &= "Brch"
+                Case "t"
+                    mOrgFilterType = OrgFilterType.OrgFilterTypeTerritory
+                    mOrgFilterList = filterData.OrgFilterList
+                    mDashType &= "Terr"
+                Case Else
+                    mOrgFilterType = OrgFilterType.OrgFilterTypeNone
+            End Select
+
+            If mOrgFilterType = OrgFilterType.OrgFilterTypeNone Then
+                response.IsSuccess = False
+                response.RC = 16
+                response.Message = "Invalid OrgFilterType"
+                Return response
+            End If
+
+            If mOrgFilterList = String.Empty Then
+                response.IsSuccess = False
+                response.RC = 16
+                response.Message = "Invalid OrgFilterList"
+                Return response
+            End If
+
+            If filterData.Col Is Nothing Then
+                response.IsSuccess = False
+                response.RC = 16
+                response.Message = "Invalid Customers"
+                Return response
+            End If
+
+            If filterData.Col.CustomerCamparatorName = String.Empty Or filterData.Col.CustomerCamparatorValue = String.Empty Then
+                response.IsSuccess = False
+                response.RC = 16
+                response.Message = "Invalid Customers"
+                Return response
+            End If
+
+            If filterData.Col.SubDivisionCamparatorName = String.Empty Then
+                response.IsSuccess = False
+                response.RC = 16
+                response.Message = "Invalid Sub Division"
+                Return response
+            End If
+
+            If filterData.Rows.Count = 0 Then
+                response.IsSuccess = False
+                response.RC = 16
+                response.Message = "Invalid Rows"
+                Return response
+            End If
+
+
+            CustomerCamparatorName = filterData.Col.CustomerCamparatorName
+            CustomerCamparatorValue = filterData.Col.CustomerCamparatorValue
+            SubDivisionCamparatorName = filterData.Col.SubDivisionCamparatorName
+            SubDivisionCamparatorValue = filterData.Col.SubDivisionCamparatorValue
+            WorkOrderType = filterData.Col.WorkOrderType
+
+            mCustAssoc = filterData.CustAssoc.ToLower
+            mVendorCode = filterData.VendorCode.ToLower
+
+            If mCustAssoc <> String.Empty Then mSrchCustAssoc = "," & mCustAssoc & ","
+
+            mTs1 = New TimeSpan(Now.Day, Now.Hour, Now.Minute, Now.Second, Now.Millisecond)
+            RC = 0
+            ErrorMsg = String.Empty
+
+            'Open database           
+            doGetDbCfgNoCC(RC, ErrorMsg)
+
+            If RC <> 0 Then
+                response.IsSuccess = False
+                response.RC = RC
+                response.Message = ErrorMsg
+                Return response
+            End If
+
+            'Get summary counts
+            doSql(RC, ErrorMsg)
+
+
+            If RC <> 0 Then
+                response.IsSuccess = False
+                response.RC = RC
+                response.Message = ErrorMsg
+                Return response
+            End If
+
+            Select Case mOrgType
+                Case OrgType.OrgTypeMain
+                    ResponseData = doSumMain(filterData)
+                    response.IsSuccess = True
+                    response.RC = 0
+                    response.SingleResult = ResponseData
+                Case Else
+            End Select
+
+            If RC <> 0 Then
+                response.IsSuccess = False
+                response.RC = RC
+                response.Message = ErrorMsg
+                Return response
+            End If
+
+            'Log usage
+            Try
+                mTs2 = New TimeSpan(Now.Day, Now.Hour, Now.Minute, Now.Second, Now.Millisecond)
+                sz = "OrgCnt=" & ListItemCount(filterData.OrgFilterList) & ",Time=" & mTs2.Subtract(mTs1).ToString()
+                CustomerServiceBusinessInstance.InsertDashLog(mDashType, filterData.UserId, sz)
+            Catch ex As Exception
+            End Try
+        Catch ex As Exception
+            response.IsSuccess = False
+            response.RC = 5
+            response.Message = "GetSummaryData Exception:" & ex.Message
+            WriteEventLog(ErrorMsg)
+            Return response
+        End Try
+        Return response
+    End Function
+
+    Private Sub doGetDbCfgNoCC(ByRef RC As Integer, ByRef ErrorMsg As String)
+
+        Dim strKey1Value As String = "MainCnt."
+        Dim strKey2Value As String = ""
+        Dim DfltTypes As String
+
+        Try
+
+            Dim sql As String
+            Dim sz As String
+
+            ' Get the DPLY Call Types
+            strKey2Value = "WOTypes.DPLY"
+            DfltTypes = "dply,2dpl,3dpl,4dpl,5dpl,ndpl,sdpl,ndpb,fdpl,cdpl,pshe"
+            sql = String.Empty
+            sql &= "DECLARE @szValue1 varchar(255), @szValue2 varchar(255), @szValue3 varchar(255);"
+            sql &= vbCrLf & "SELECT @szValue1 = [Value1], @szValue2=[Value2], @szValue3=[Value3] FROM cat.dbo.DashControl with (nolock) WHERE (Key1='Dashboard') And (Key2='@strKey2Value');"
+            sql &= vbCrLf & "IF (@szValue1 is null) And (@szValue2 is null) And (@szValue3 is null) select @szValue1 = '@DfltTypes', @szValue2 = '', @szValue3 = '';"
+            sql &= vbCrLf & "select ISNULL(@szValue1,'') + ISNULL(@szValue2,'') + ISNULL(@szValue3,'');"
+
+            sql = sql.Replace("@strKey2Value", strKey2Value)
+            sql = sql.Replace("@DfltTypes", DfltTypes)
+
+            sz = CustomerServiceBusinessInstance.GetScalarValue(sql)
+            g_astrCallTypesDPL = sz.ToLower.Split(",")
+
+        Catch ex As Exception
+            RC = 5
+            ErrorMsg = "doGetDbCfgNoCC Exception:" & ex.Message
+            WriteEventLog(ErrorMsg)
+        End Try
+
+    End Sub
+
+    Private Function isInStrList(ByVal sz As String, ByVal aList() As String) As Boolean
+        Dim i As Integer
+        For i = 0 To aList.GetUpperBound(0)
+            If aList(i) = sz Then Return True
+        Next
+        Return False
+    End Function
+
+    Private Sub doSql(ByRef RC As Integer, ByRef ErrorMsg As String)
+        Dim sql As String = String.Empty
+        Try
+            'Build SELECT base
+            sql = "select "
+            sql &= _
+                "dispatch_number, customer_number, query_customer_number, customer_state, employee_number, call_type" & _
+                vbCrLf & ",entitlement, stop_code, stop_code_indicator, mfg_serial_number, mfg_model_number, system_number" & _
+                vbCrLf & ",call_received_date, projected_arrival_date, call_last_modified_date, call_status, timezone" & _
+                vbCrLf & ",actiongrp, stop_code_upd_dt, territory, srs_sched, ready_date, cust_sub_div" & _
+                vbCrLf & ",branch_rdb, region_rdb, area_rdb, district_rdb, VendorCode, csr_territory, customer_country, employee_class " & _
+                vbCrLf & ",sched_window_end_dt, call_closed_date, email_addr, (select count(*) from dbo.parts parts with (nolock) where calls.Dispatch_Number = parts.Dispatch_Number) as PartCount" & _
+                vbCrLf & ",case when exists (select 'x' from oneview.dbo.labor lbr WITH (nolock) " &
+                                                       "where lbr.Dispatch_Number = calls.Dispatch_Number And lbr.stop_code In ('21','23','05','17','26','ONSITE') " &
+                                                       "And CAST(getdate()+(calls.timezone/24) As date) = CAST(lbr.end_datetime As date)) " &
+                                          "then 'y' else null end AS HasCC_Today"
+            sql &= vbCrLf & ",(select count(*) from dbo.labor lbr with (nolock) where calls.Dispatch_Number = lbr.Dispatch_Number and cast(calls.[ready_date] AS date) <= cast(lbr.start_datetime as date) and lbr.stop_code In ('02','04','05')) as NumDeferSinceRdy "
+            sql &= vbCrLf & ", appdb.dbo.GetBusDtCust(calls.[query_customer_number], calls.[customer_country], calls.[customer_state], CONVERT(date, GETDATE()+(calls.[timezone]/24)),1) AS EtaNbd "
+            sql &= vbCrLf & ", case when EXISTS ( SELECT 'x' FROM dbo.LaborActivity a (nolock) " & _
+                                                       "WHERE(a.Dispatch_Number = calls.Dispatch_Number) " & _
+                                                       "And (a.product_reference In ('2ManAssist','2Man')) " & _
+                                                       "And (ISNULL(a.CSR,'')='' Or LEFT(a.CSR,1)='T')) then 'y' " & _
+                                          "else null end AS TwoManAssign "
+            sql &= vbCrLf & ",case when " & _
+                                 vbCrLf & "(EXISTS ( SELECT 'x' FROM oneview.dbo.labor as lbr with (nolock) WHERE calls.dispatch_number = lbr.dispatch_number And (lbr.stop_code='ets01'))) " & _
+                                 vbCrLf & "  And (NOT EXISTS ( SELECT 'x' FROM oneview.dbo.labor as lbr with (nolock) WHERE calls.dispatch_number = lbr.dispatch_number And (lbr.stop_code='ets99')) Or (dbo.GetLastSC(calls.[dispatch_number], 'ets01') > dbo.GetLastSC(calls.[dispatch_number], 'ets99'))) " & _
+                                 vbCrLf & "then 'y' else null end AS Escalations "
+
+            sql &= vbCrLf & ",appdb.dbo.GetBusDtCust([query_customer_number], [customer_country], [customer_state], cast(getdate()+(calls.timezone/24) as date),-1) as Gbdc01"
+            sql &= vbCrLf & ",appdb.dbo.GetBusDtCust([query_customer_number], [customer_country], [customer_state], cast(call_received_date as date), case call_type when '05bd' then 5 when 'depo' then 5 when 'dpbr' then 5 when '03bd' then 3 when '02bd' then 2 else 1 end) as Gbdc02"
+            sql &= vbCrLf & ",appdb.dbo.GetBusDtCust([query_customer_number], [customer_country], [customer_state], cast(getdate()+(calls.timezone/24) as date),1) as Gbdc03"
+            sql &= vbCrLf & ",appdb.dbo.GetBusDtCust([query_customer_number], [customer_country], [customer_state], cast(getdate()+(calls.timezone/24) as date),1) as Gbdc04"
+            sql &= vbCrLf & ",case when exists (select 'x' from dbo.labor as lbr with (nolock) where calls.dispatch_number = lbr.dispatch_number And (cast(lbr.start_datetime as date) = CAST(getdate()+(calls.timezone/24) as date)) And lbr.stop_code='21') then 'y' else null end as Lbr01"
+            sql &= vbCrLf & ",case when exists (select 'x' from dbo.labor as lbr with (nolock) where calls.dispatch_number = lbr.dispatch_number And (cast(lbr.start_datetime as date) = CAST(getdate()+(calls.timezone/24) as date)) And lbr.stop_code In ('60','63','65','75','76','55','56','57','58')) then 'y' else null end as Lbr02"
+            sql &= vbCrLf & ",case when exists (select 'x' from dbo.labor as lbr with (nolock) where calls.dispatch_number = lbr.dispatch_number and lbr.stop_code='61') then 'y' else null end as Lbr03"
+            sql &= ",case when exists (select 'x' from dbo.labor as lbr with (nolock) where calls.dispatch_number = lbr.dispatch_number and lbr.stop_code In ('60','61','62','63','64','65','66','67','71','73','74','75','76','77','78','79','90','95')) then 'y' else null end as Lbr04"
+            sql &= ",dbo.GetStopCodeList(calls.dispatch_number) as ScList "
+            ' call opened after 17:00 and 1BD after call open
+            sql &= vbCrLf & ",case when (CONVERT(time, calls.[call_received_date]) < CONVERT(time, '17:00')) " & _
+                    " And (CONVERT(date, GETDATE()+(calls.[timezone]/24)) >= appdb.dbo.GetBusDtCust(calls.[query_customer_number], calls.[customer_country], calls.[customer_state], CONVERT(date, calls.[call_received_date]), 1)) " & _
+                    " then 'y' else null end As PendingAppt1 "
+
+            ' 2BD after call open
+            sql &= vbCrLf & ",case when (CONVERT(time, calls.[call_received_date]) >= CONVERT(time, '17:00')) " & _
+                    " And (CONVERT(date, GETDATE()+(calls.[timezone]/24)) >= appdb.dbo.GetBusDtCust(calls.[query_customer_number], calls.[customer_country], calls.[customer_state], CONVERT(date, calls.[call_received_date]), 2)) " & _
+                    " then 'y' else null end As PendingAppt2 "
+
+            ' EmeaHasCC   
+            sql &= vbCrLf & ",case when exists (select 'x' from oneview.dbo.labor lbr WITH (nolock) " &
+                    "where lbr.Dispatch_Number = calls.Dispatch_Number And lbr.stop_code In ('21','23','05','17')) " &
+                    "then 'y' else null end AS HasCC "
+
+            sql &= vbCrLf & "from dbo.vw_csr_org_calls as calls with (NOLOCK) "
+
+            'Build WHERE
+            Select Case mOrgFilterType
+                Case OrgFilterType.OrgFilterTypeBranch
+                    If (mOrgFilterList.Split(","c).Count(Function(c) c = "crop") > 0) _
+                    Then
+                        sql &= vbCrLf & "where ([branch_rdb] in " & List2Set(mOrgFilterList) & " Or [branch_rdb] Is Null Or [branch_rdb] = 'corp')"
+                    Else
+                        sql &= vbCrLf & "where ([branch_rdb] in " & List2Set(mOrgFilterList) & ")"
+                    End If
+                Case OrgFilterType.OrgFilterTypeTech
+                    sql &= vbCrLf & "where (employee_number in " & List2Set(mOrgFilterList) & ")"
+                Case OrgFilterType.OrgFilterTypeTerritory
+                    sql &= vbCrLf & "where (csr_territory in " & List2Set(mOrgFilterList) & ")"
+                Case Else
+            End Select
+
+            'Filetr Customers by Code, Sub-Division, Wo Type
+            If Not String.IsNullOrEmpty(CustomerCamparatorName) Then
+                sql &= vbCrLf & " and (" & GetCustomerComparatorString(CustomerCamparatorName, CustomerCamparatorValue) & ")"
+            End If
+
+            If Not String.IsNullOrEmpty(SubDivisionCamparatorName) And SubDivisionCamparatorName.ToLower <> "all" Then
+                sql &= vbCrLf & " and (cust_sub_div " & GetComparatorString(SubDivisionCamparatorName, SubDivisionCamparatorValue) & ")"
+            End If
+
+            If Not String.IsNullOrEmpty(WorkOrderType) Then
+                sql &= vbCrLf & " and (call_type in " & List2Set(WorkOrderType) & ")"
+            End If
+
+            'Execute SELECT
+            CallResults = CustomerServiceBusinessInstance.GetCallResult(sql)
+
+        Catch ex As Exception
+            RC = 5
+            ErrorMsg = "doSql Exception: " & Len(sql).ToString & vbCrLf & ex.Message & vbCrLf & vbCrLf & sql
+            WriteEventLog(ErrorMsg)
+        End Try
+    End Sub
+
+    Public Function Count_POD( _
+                             ByVal filterData As FilterData, _
+                            Optional ByVal p_BusDaysAge As Integer = 0 _
+                            ) As IList(Of WayBillResult)
+
+        Dim strWhere As String
+        Dim VendorUser As Boolean = False
+
+        VendorUser = IIf((filterData.VendorCode <> String.Empty Or filterData.UserPermission.DashVendor), True, False)
+
+        Select Case filterData.OrgFilterType.ToLower
+            Case "b"
+                strWhere = "([Branch] In " & List2Set(filterData.OrgBranchList) & ") "
+            Case "t"
+                strWhere = "([Territory] In " & List2Set(filterData.OrgFilterList) & ") And ([Branch] In " & List2Set(filterData.OrgBranchList) & ") "
+            Case Else
+                strWhere = "1=2 "
+        End Select
+
+        'Filetr Customers by Code, Sub-Division, Wo Type
+        If Not String.IsNullOrEmpty(filterData.Col.CustomerCamparatorName) Then
+            strWhere = strWhere & vbCrLf & " and ([CustCode] " & GetComparatorString(filterData.Col.CustomerCamparatorName, filterData.Col.CustomerCamparatorValue) & ")"
+        End If
+
+        If Not String.IsNullOrEmpty(SubDivisionCamparatorName) And SubDivisionCamparatorName.ToLower <> "all" Then
+            strWhere = strWhere & vbCrLf & " and (Subdivision " & GetComparatorString(SubDivisionCamparatorName, SubDivisionCamparatorValue) & ")"
+        End If
+
+        ' If the user vendor code is not blank, make sure the vendor code matches the assigned employee
+        If (VendorUser) Then
+            If (mVendorCode <> String.Empty AndAlso (Not filterData.UserPermission.DashVendorFilterOff)) Then
+                strWhere = strWhere & vbCrLf & "  And (VENDORCODE = '" & filterData.VendorCode & "') "
+            End If
+            If (mCustAssoc <> String.Empty AndAlso (Not filterData.UserPermission.DashCustomerFilterOff)) Then
+                strWhere = strWhere & vbCrLf & "  And ((CHARINDEX(',' + [CustCode] + '|' + [Subdivision] + ',','" & mSrchCustAssoc & "')>0) " & _
+                            vbCrLf & " Or (CHARINDEX(','+ [CustCode] + ',','" & mSrchCustAssoc & "')>0)) "
+            End If
+            If ((mVendorCode = String.Empty) Or (mCustAssoc = String.Empty)) Then
+                strWhere = " and 1=2 "
+            End If
+        End If
+        
+        If (p_BusDaysAge > 0) Then
+            strWhere = strWhere & _
+                vbCrLf & "  And (CONVERT(date, GETDATE()) " & _
+                                ">= (appdb.dbo.GetBusDtCust([CustCode], 'US', 'MA', CONVERT(date, [comdate]), " & CStr(p_BusDaysAge) & "))) "
+        End If
+
+        Dim strSQL As String
+        strSQL = _
+            "SELECT rid As RowId " & _
+            vbCrLf & "FROM oneview.dbo.vw_OpenWaybills " & _
+            vbCrLf & "WHERE " & strWhere & ";"
+
+        Return CustomerServiceBusinessInstance.GetWayBillResult(strSQL)
+
+    End Function
+End Class

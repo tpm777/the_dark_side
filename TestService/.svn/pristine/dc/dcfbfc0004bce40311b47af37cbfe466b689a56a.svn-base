@@ -1,0 +1,56 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+WWTS.Data
+</name>
+</assembly>
+<members>
+<member name="P:WWTS.Data.Model.ServiceFaultData.Message">
+ <summary>
+ Property to get set fault message of service method execution
+ </summary>
+</member>
+<member name="P:WWTS.Data.Model.ServiceFaultData.FaultCode">
+ <summary>
+ Property to get set fault code of service method execution
+ </summary>
+</member>
+<member name="P:WWTS.Data.JsonResponse`1.Results">
+ <summary>
+ Response result
+ </summary>
+</member>
+<member name="T:WWTS.Data.ResponseBase">
+ <summary>
+ Class to define service response properties
+ </summary>
+</member>
+<member name="P:WWTS.Data.ResponseBase.IsSuccess">
+ <summary>
+ True, If bussiness logic return successful response
+ </summary>
+</member>
+<member name="P:WWTS.Data.ResponseBase.Message">
+ <summary>
+ Response message will be either for success or unsuccess
+ </summary>
+</member>
+<member name="T:WWTS.Data.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:WWTS.Data.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:WWTS.Data.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+</members>
+</doc>

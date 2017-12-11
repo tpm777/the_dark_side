@@ -1,0 +1,208 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+WWTS.DataEngine
+</name>
+</assembly>
+<members>
+<member name="M:WWTS.DataEngine.CompositeRepositoryBase`1.ValidateModel(`0)">
+ <summary>
+ Validates the model. Throws an exception if 
+ </summary>
+ <param name="model">The model.</param>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICompositeCrudRepository`1.Find(System.Collections.Generic.Dictionary{System.String,System.Object},WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Finds the record off the key.
+ </summary>
+ <param name="key">The key.</param>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICompositeCrudRepository`1.Find(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},WWTS.DataEngine.Contracts.ITransaction,System.Collections.Generic.IEnumerable{System.String})">
+ <summary>
+ Finds this instance based on a query expression.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICompositeCrudRepository`1.GetAll(WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Gets all off the records and potentially immediately executes the query
+ </summary>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICompositeCrudRepository`1.GetQueryable(WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Gets the deferred entity to potentially add additional search clauses upon
+ </summary>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICompositeCrudRepository`1.Save(`0,WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Saves the specified model.
+ </summary>
+ <param name="model">The model.</param>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICompositeCrudRepository`1.Delete(`0,WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Deletes the specified model.
+ </summary>
+ <param name="model">The model.</param>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICrudRepository`2.Find(`0,WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Finds the record off the key.
+ </summary>
+ <param name="key">The key.</param>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICrudRepository`2.FindWithExpand(`0,System.String,WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Finds the record off the key.
+ </summary>
+ <param name="key">The key.</param>
+ <param name="includeQueryPath">table name which needs to be included</param>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICrudRepository`2.Find(System.Linq.Expressions.Expression{System.Func{`1,System.Boolean}},WWTS.DataEngine.Contracts.ITransaction,System.Collections.Generic.IEnumerable{System.String})">
+ <summary>
+ Finds this instance based on a query expression.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICrudRepository`2.GetAll(WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Gets all off the records and potentially immediately executes the query
+ </summary>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICrudRepository`2.GetQueryable(WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Gets the deferred entity to potentially add additional search clauses upon
+ </summary>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICrudRepository`2.Save(`1,WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Saves the specified model.
+ </summary>
+ <param name="model">The model.</param>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.ICrudRepository`2.Delete(`1,WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Deletes the specified model.
+ </summary>
+ <param name="model">The model.</param>
+ <param name="externalTransaction">The potential external transaction, otherwise the command will be executed in a local transaction</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.IExecutionObject.ExecuteDbCommand``1(System.String,System.Object[])">
+ <summary>
+ Execute the database stored procedures and inline queries
+ </summary>
+ <param name="commandName">command name</param>
+ <param name="parameters">parameters</param>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.IExecutionObject.ExecuteScalarCommand``1(System.String,System.Object[])">
+ <summary>
+ Method to execute the scalar command values
+ </summary>
+ <typeparam name="T"></typeparam>
+ <param name="commandName">command name</param>
+ <param name="parameters">parameters</param>
+ <returns>returns scalar value</returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.IExecutionObject.ExecuteScalarValueCommand``1(System.String)">
+ <summary>
+ Method to execute the scalar command values
+ </summary>
+ <typeparam name="T"></typeparam>
+ <param name="commandName">command name</param>
+ <returns>returns scalar value</returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.IExecutionObject.ExecuteSqlInlineQuery``1(System.String)">
+ <summary>
+ Method to retuns collection using inline sql query
+ </summary>
+ <typeparam name="TData">Generic type</typeparam>
+ <param name="query">sql query</param>
+ <returns>returns entity collection</returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.IRepositoryTransactionManager.BeginChanges">
+ <summary>
+ Start the transaction boundary for changes.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:WWTS.DataEngine.Contracts.IRepositoryTransactionManager.Perform(System.Action{WWTS.DataEngine.Contracts.ITransaction},System.Action{WWTS.DataEngine.Contracts.ITransaction},WWTS.DataEngine.Contracts.ITransaction)">
+ <summary>
+ Performs the specified action within a transaction.
+ </summary>
+ <param name="action">The action.</param>
+ <param name="localFinalAction">The action to execute if the transaction was local and prior to disposal.</param>
+ <param name="externalTransaction">A potential transaction passed in.</param>
+</member>
+<member name="T:WWTS.DataEngine.EFRepositoryTransactionManager">
+ <summary>
+ This is mostly a factory class that simply instantiates the transactions, so it's sharable
+ </summary>
+</member>
+<member name="T:WWTS.DataEngine.EFSynchronousRepository`3">
+ <summary>
+ Extends SerialCrudServiceBase, but makes a strongly typed DB Context available to sub-types, along with upsert and delete
+ </summary>
+ <typeparam name="TKey">The type of the key.</typeparam>
+ <typeparam name="TModel">The type of the model.</typeparam>
+ <typeparam name="TDbContext">The type of the database context.</typeparam>
+</member>
+<member name="P:WWTS.DataEngine.ExecutionStrategyDbConfiguration.SuspendExecutionStrategy">
+ <summary>
+ Suspend the execution strategy for code that needs to use transactions.
+ </summary>
+ <value>The suspend execution strategy.</value>
+</member>
+<member name="T:WWTS.DataEngine.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:WWTS.DataEngine.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:WWTS.DataEngine.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:WWTS.DataEngine.SynchronousRepositoryBase`2">
+ <summary>
+ A CRUD service that runs method in serial form and does not allow for concurrent operations.
+ </summary>
+ <typeparam name="TKey">The type of the T key.</typeparam>
+ <typeparam name="TModel">The type of the T model.</typeparam>
+</member>
+<member name="M:WWTS.DataEngine.SynchronousRepositoryBase`2.ValidateModel(`1)">
+ <summary>
+ Validates the model. Throws an exception if 
+ </summary>
+ <param name="model">The model.</param>
+</member>
+</members>
+</doc>

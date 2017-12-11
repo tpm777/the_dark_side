@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:39616/CoreService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WWTS.ServiceApp" />
+  <xs:import schemaLocation="http://localhost:39616/CoreService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/WWTS.Data" />
+  <xs:element name="GetSummaryDataSample">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WWTS.ServiceApp" minOccurs="0" name="filterData" nillable="true" type="q1:FilterData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSummaryDataSampleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WWTS.Data" minOccurs="0" name="GetSummaryDataSampleResult" nillable="true" type="q2:ColsDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSummaryData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WWTS.ServiceApp" minOccurs="0" name="filterData" nillable="true" type="q3:FilterData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSummaryDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WWTS.Data" minOccurs="0" name="GetSummaryDataResult" nillable="true" type="q4:ColsDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSummaryDetailData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WWTS.ServiceApp" minOccurs="0" name="filterData" nillable="true" type="q5:FilterDetailData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSummaryDetailDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WWTS.Data" minOccurs="0" name="GetSummaryDetailDataResult" nillable="true" type="q6:ColsDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

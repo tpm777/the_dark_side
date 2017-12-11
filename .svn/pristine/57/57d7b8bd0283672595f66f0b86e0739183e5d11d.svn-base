@@ -1,0 +1,754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OneviewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Oneview.dbo.audit' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="audit">
+          <Property Name="module" Type="varchar" MaxLength="25" />
+          <Property Name="start" Type="datetime" />
+          <Property Name="finish" Type="datetime" />
+          <Property Name="modified" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="inserted" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="deleted" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="status" Type="varchar" MaxLength="200" />
+          <Property Name="ftp_sess_stat" Type="varchar" MaxLength="50" />
+          <Property Name="ftp_file_stat" Type="varchar" MaxLength="50" />
+          <Property Name="comment" Type="varchar" MaxLength="300" />
+          <Property Name="source" Type="varchar" MaxLength="10" />
+        </EntityType>-->
+        <EntityType Name="calls">
+          <Key>
+            <PropertyRef Name="Dispatch_Number" />
+          </Key>
+          <Property Name="Dispatch_Number" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="customer_number" Type="varchar" MaxLength="20" />
+          <Property Name="query_customer_number" Type="varchar" MaxLength="13" />
+          <Property Name="customer_name" Type="varchar" MaxLength="36" />
+          <Property Name="customer_address_1" Type="varchar" MaxLength="36" />
+          <Property Name="customer_address_2" Type="varchar" MaxLength="36" />
+          <Property Name="customer_address_3" Type="varchar" MaxLength="36" />
+          <Property Name="customer_city" Type="varchar" MaxLength="35" />
+          <Property Name="customer_state" Type="varchar" MaxLength="15" />
+          <Property Name="customer_zip" Type="varchar" MaxLength="10" />
+          <Property Name="contact_name" Type="varchar" MaxLength="25" />
+          <Property Name="contact_phone" Type="varchar" MaxLength="20" />
+          <Property Name="employee_number" Type="varchar" MaxLength="10" />
+          <Property Name="employee_name" Type="varchar" MaxLength="35" />
+          <Property Name="call_type" Type="varchar" MaxLength="4" />
+          <Property Name="critical_verbage" Type="varchar" MaxLength="12" />
+          <Property Name="critical_code" Type="varchar" MaxLength="1" />
+          <Property Name="entitlement" Type="varchar" MaxLength="100" />
+          <Property Name="region_rdb" Type="varchar" MaxLength="10" />
+          <Property Name="district_rdb" Type="varchar" MaxLength="10" />
+          <Property Name="branch_rdb" Type="varchar" MaxLength="10" />
+          <Property Name="stop_code" Type="varchar" MaxLength="20" />
+          <Property Name="stop_code_indicator" Type="varchar" MaxLength="10" />
+          <Property Name="excuse_code" Type="varchar" MaxLength="20" />
+          <Property Name="wang_serial_number" Type="varchar" MaxLength="10" />
+          <Property Name="wang_model_number" Type="varchar" MaxLength="50" />
+          <Property Name="mfg_serial_number" Type="varchar" MaxLength="30" />
+          <Property Name="mfg_model_number" Type="varchar" MaxLength="30" />
+          <Property Name="system_number" Type="varchar" MaxLength="30" />
+          <Property Name="call_received_date" Type="smalldatetime" />
+          <Property Name="call_deferred_date" Type="smalldatetime" />
+          <Property Name="call_accepted_date" Type="smalldatetime" />
+          <Property Name="call_arrived_date" Type="smalldatetime" />
+          <Property Name="projected_arrival_date" Type="smalldatetime" />
+          <Property Name="call_dispatched_date" Type="smalldatetime" />
+          <Property Name="call_last_modified_date" Type="smalldatetime" />
+          <Property Name="call_status" Type="varchar" MaxLength="4" />
+          <Property Name="call_error_flag" Type="varchar" MaxLength="1" />
+          <Property Name="awp_code" Type="varchar" MaxLength="3" />
+          <Property Name="business_association_type" Type="varchar" MaxLength="3" />
+          <Property Name="oem_incident_number" Type="varchar" MaxLength="20" />
+          <Property Name="plan_code" Type="varchar" MaxLength="1" />
+          <Property Name="extended_coverage" Type="varchar" MaxLength="2" />
+          <Property Name="area_rdb" Type="varchar" MaxLength="10" />
+          <Property Name="SLA_Desc" Type="tinyint" />
+          <Property Name="SLA_Color" Type="tinyint" />
+          <Property Name="symptom_code" Type="varchar" MaxLength="2" />
+          <Property Name="Coverage_code" Type="varchar" MaxLength="12" />
+          <Property Name="datetimeloaded" Type="datetime" />
+          <Property Name="timezone" Type="numeric" Precision="4" Scale="1" />
+          <Property Name="actiongrp" Type="varchar" MaxLength="10" />
+          <Property Name="source" Type="varchar" MaxLength="10" />
+          <Property Name="vendor_callnbr" Type="varchar" MaxLength="20" />
+          <Property Name="stop_code_upd_dt" Type="smalldatetime" />
+          <Property Name="territory" Type="varchar" MaxLength="10" />
+          <Property Name="whse" Type="varchar" MaxLength="10" />
+          <Property Name="whsedist" Type="int" />
+          <Property Name="SRS_sched" Type="varchar" MaxLength="2" />
+          <Property Name="SKU" Type="varchar" MaxLength="30" />
+          <Property Name="install_qty" Type="int" />
+          <Property Name="sched_window_start_dt" Type="smalldatetime" />
+          <Property Name="sched_window_end_dt" Type="smalldatetime" />
+          <Property Name="cust_syscode" Type="varchar" MaxLength="15" />
+          <Property Name="customer_lat" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="customer_long" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="onsite_radius" Type="int" />
+          <Property Name="avg_repair_time" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="csr_cell_phone" Type="varchar" MaxLength="16" />
+          <Property Name="auto_onsite" Type="varchar" MaxLength="1" />
+          <Property Name="call_closed_date" Type="smalldatetime" />
+          <Property Name="last_call_Closed" Type="varchar" MaxLength="10" />
+          <Property Name="total_activities" Type="int" />
+          <Property Name="ready_date" Type="smalldatetime" />
+          <Property Name="cust_sub_div" Type="varchar" MaxLength="7" />
+          <Property Name="customer_country" Type="varchar" MaxLength="10" />
+          <Property Name="Purchase_Order" Type="varchar" MaxLength="30" />
+          <Property Name="customer_part_master" Type="varchar" MaxLength="8" />
+          <Property Name="cust_alt_ref" Type="varchar" MaxLength="20" />
+          <Property Name="required_skills" Type="varchar" MaxLength="100" />
+          <Property Name="initial_eta_dtm" Type="smalldatetime" />
+          <Property Name="contact_altphone" Type="varchar" MaxLength="25" />
+          <Property Name="altcontact_1stphone" Type="varchar" MaxLength="25" />
+          <Property Name="altcontact_2ndphone" Type="varchar" MaxLength="25" />
+          <Property Name="altcontact_name" Type="varchar" MaxLength="30" />
+          <Property Name="email_addr" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Oneview.dbo.Comments' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Comments">
+          <Property Name="dispatch_number" Type="varchar" MaxLength="20" />
+          <Property Name="comment_text" Type="varchar" MaxLength="100" />
+          <Property Name="Remark_lineno" Type="int" />
+          <Property Name="datetimeloaded" Type="datetime" />
+          <Property Name="Remark_datetime" Type="smalldatetime" />
+          <Property Name="source" Type="varchar" MaxLength="10" />
+          <Property Name="remark_type" Type="varchar" MaxLength="2" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Oneview.dbo.CSR' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CSR">
+          <Property Name="CSRCODE" Type="varchar" MaxLength="50" />
+          <Property Name="CSRNAME" Type="varchar" MaxLength="50" />
+          <Property Name="ADDR1" Type="varchar" MaxLength="50" />
+          <Property Name="ADDR2" Type="varchar" MaxLength="50" />
+          <Property Name="ADDR3" Type="varchar" MaxLength="50" />
+          <Property Name="CITY" Type="varchar" MaxLength="50" />
+          <Property Name="STATE" Type="varchar" MaxLength="50" />
+          <Property Name="ZIP" Type="varchar" MaxLength="50" />
+          <Property Name="WHSE" Type="varchar" MaxLength="50" />
+          <Property Name="TIMEZONE" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CSRCLASS" Type="varchar" MaxLength="50" />
+          <Property Name="BRANCH" Type="varchar" MaxLength="50" />
+          <Property Name="DISTRICT" Type="varchar" MaxLength="50" />
+          <Property Name="AREA" Type="varchar" MaxLength="50" />
+          <Property Name="REGION" Type="varchar" MaxLength="50" />
+          <Property Name="PHONE" Type="varchar" MaxLength="50" />
+          <Property Name="CELLPHONE" Type="varchar" MaxLength="50" />
+          <Property Name="EMAILADDR" Type="varchar" MaxLength="100" />
+          <Property Name="ALTEMAILADDR" Type="varchar" MaxLength="250" />
+          <Property Name="STATUS" Type="varchar" MaxLength="50" />
+          <Property Name="BACKUPCSRCODE" Type="varchar" MaxLength="50" />
+          <Property Name="TRANSFERCSRCODE" Type="varchar" MaxLength="50" />
+          <Property Name="ESCMGR1" Type="varchar" MaxLength="50" />
+          <Property Name="ESCMGR2" Type="varchar" MaxLength="50" />
+          <Property Name="ESCMGR3" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER1" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER2" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER3" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER4" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER5" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER1ACT" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER2ACT" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER3ACT" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER4ACT" Type="varchar" MaxLength="50" />
+          <Property Name="PAGER5ACT" Type="varchar" MaxLength="50" />
+          <Property Name="VENDORCODE" Type="varchar" MaxLength="50" />
+          <Property Name="SOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="DATETIMELOADED" Type="datetime" />
+          <Property Name="CUSTPARTMSTRS" Type="varchar" MaxLength="200" />
+          <Property Name="CUST_ACCT" Type="varchar" MaxLength="8" />
+        </EntityType>-->
+        <EntityType Name="dtproperties">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="property" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="objectid" Type="int" />
+          <Property Name="property" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="255" />
+          <Property Name="uvalue" Type="nvarchar" MaxLength="255" />
+          <Property Name="lvalue" Type="image" />
+          <Property Name="version" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Oneview.dbo.LABOR' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="LABOR">
+          <Property Name="DISPATCH_NUMBER" Type="varchar" MaxLength="20" />
+          <Property Name="START_TRAVEL_DATETIME" Type="smalldatetime" />
+          <Property Name="START_DATETIME" Type="smalldatetime" />
+          <Property Name="END_DATETIME" Type="smalldatetime" />
+          <Property Name="END_TRAVEL_DATETIME" Type="smalldatetime" />
+          <Property Name="EMPLOYEE_NUMBER" Type="varchar" MaxLength="20" />
+          <Property Name="STOP_CODE" Type="varchar" MaxLength="20" />
+          <Property Name="SOURCE" Type="varchar" MaxLength="5" />
+          <Property Name="DATETIMELOADED" Type="datetime" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Oneview.dbo.LaborActivity' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="LaborActivity">
+          <Property Name="dispatch_number" Type="varchar" MaxLength="20" />
+          <Property Name="line_item" Type="int" />
+          <Property Name="product_reference" Type="varchar" MaxLength="20" />
+          <Property Name="description" Type="varchar" MaxLength="70" />
+          <Property Name="average_repair" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="qty" Type="int" />
+          <Property Name="Source" Type="varchar" MaxLength="5" />
+          <Property Name="DateTimeLoaded" Type="datetime" />
+          <Property Name="CSR" Type="varchar" MaxLength="10" />
+        </EntityType>-->
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogType" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="LogCrit" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="LogDTM" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="RefNum" Type="varchar" MaxLength="10" />
+          <Property Name="LogMsg" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OpenWaybills">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNum" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PartSeq" Type="int" Nullable="false" />
+          <Property Name="ComDate" Type="smalldatetime" />
+          <Property Name="Region" Type="varchar" MaxLength="10" />
+          <Property Name="Area" Type="varchar" MaxLength="10" />
+          <Property Name="District" Type="varchar" MaxLength="10" />
+          <Property Name="Branch" Type="varchar" MaxLength="10" />
+          <Property Name="Territory" Type="varchar" MaxLength="10" />
+          <Property Name="EmployeeNo" Type="varchar" MaxLength="15" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="35" />
+          <Property Name="OEMIncNo" Type="varchar" MaxLength="25" />
+          <Property Name="CustCode" Type="varchar" MaxLength="10" />
+          <Property Name="CustName" Type="varchar" MaxLength="35" />
+          <Property Name="Subdivision" Type="varchar" MaxLength="10" />
+          <Property Name="PartRtnd" Type="varchar" MaxLength="20" />
+          <Property Name="PartRtndSN" Type="varchar" MaxLength="30" />
+          <Property Name="PartNo" Type="varchar" MaxLength="20" />
+          <Property Name="OrgQty" Type="int" />
+          <Property Name="UsedQty" Type="int" />
+          <Property Name="ReturnQty" Type="int" />
+          <Property Name="ActionCode" Type="int" />
+          <Property Name="NotReturnCode" Type="varchar" MaxLength="10" />
+          <Property Name="ReturnWayBill" Type="varchar" MaxLength="30" />
+          <Property Name="ReturnCarrier" Type="varchar" MaxLength="20" />
+          <Property Name="ReturnDate" Type="smalldatetime" />
+          <Property Name="RspCode" Type="varchar" MaxLength="10" />
+          <Property Name="UpdateFlag" Type="varchar" MaxLength="1" />
+          <Property Name="LastWebUpdate" Type="smalldatetime" />
+          <Property Name="CSRAsgnExcl" Type="varchar" MaxLength="1" />
+          <Property Name="ShowOnCSRPortal" Type="varchar" MaxLength="1" />
+          <Property Name="RtnWyblDispos" Type="varchar" MaxLength="10" />
+          <Property Name="DateTimeLoaded" Type="smalldatetime" />
+          <Property Name="Source" Type="varchar" MaxLength="10" />
+          <Property Name="CustPartRef" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Oneview.dbo.OWBControl' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="OWBControl">
+          <Property Name="Code" Type="varchar" MaxLength="20" />
+          <Property Name="Key1" Type="varchar" MaxLength="60" />
+          <Property Name="Key2" Type="varchar" MaxLength="60" />
+          <Property Name="Key3" Type="varchar" MaxLength="60" />
+          <Property Name="Value1" Type="varchar" MaxLength="60" />
+          <Property Name="Value2" Type="varchar" MaxLength="60" />
+          <Property Name="Value3" Type="varchar" MaxLength="60" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Oneview.dbo.parts' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="parts">
+          <Property Name="dispatch_number" Type="varchar" MaxLength="20" />
+          <Property Name="part_line_number" Type="varchar" MaxLength="4" />
+          <Property Name="part_quantity" Type="varchar" MaxLength="10" />
+          <Property Name="part_number" Type="varchar" MaxLength="30" />
+          <Property Name="part_description" Type="varchar" MaxLength="30" />
+          <Property Name="part_waybill_number" Type="varchar" MaxLength="20" />
+          <Property Name="part_shipped_carrier" Type="varchar" MaxLength="30" />
+          <Property Name="part_shipped_date" Type="smalldatetime" />
+          <Property Name="datetimeloaded" Type="datetime" />
+          <Property Name="source" Type="varchar" MaxLength="10" />
+          <Property Name="part_price" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="part_qty_used" Type="int" />
+          <Property Name="part_location" Type="varchar" MaxLength="8" />
+        </EntityType>-->
+        <EntityType Name="ResponseCodes">
+          <Key>
+            <PropertyRef Name="RspCode" />
+          </Key>
+          <Property Name="RspCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="60" />
+          <Property Name="Inactive" Type="bit" />
+          <Property Name="Tracking" Type="smallint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Oneview.dbo.Sources' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Sources">
+          <Property Name="QUE" Type="varchar" MaxLength="22" />
+          <Property Name="ACES" Type="varchar" MaxLength="20" />
+          <Property Name="CESIS" Type="varchar" MaxLength="20" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Oneview.dbo.tbl_csr_org' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbl_csr_org">
+          <Key>
+            <PropertyRef Name="csrcode" />
+          </Key>
+          <Property Name="csrcode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="warehouse" Type="varchar" MaxLength="10" />
+          <Property Name="branch" Type="varchar" MaxLength="10" />
+          <Property Name="regionrdb" Type="varchar" MaxLength="10" />
+          <Property Name="districtrdb" Type="varchar" MaxLength="10" />
+          <Property Name="areardb" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="WyblDisposCodes">
+          <Key>
+            <PropertyRef Name="WyblDisposCode" />
+          </Key>
+          <Property Name="WyblDisposCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityContainer Name="OneviewModelStoreContainer">
+          <EntitySet Name="calls" EntityType="Self.calls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpenWaybills" EntityType="Self.OpenWaybills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResponseCodes" EntityType="Self.ResponseCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WyblDisposCodes" EntityType="Self.WyblDisposCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_csr_org" EntityType="Self.tbl_csr_org" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_csr_org].[csrcode] AS [csrcode], 
+    [tbl_csr_org].[warehouse] AS [warehouse], 
+    [tbl_csr_org].[branch] AS [branch], 
+    [tbl_csr_org].[regionrdb] AS [regionrdb], 
+    [tbl_csr_org].[districtrdb] AS [districtrdb], 
+    [tbl_csr_org].[areardb] AS [areardb]
+    FROM [dbo].[tbl_csr_org] AS [tbl_csr_org]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OneviewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="call">
+          <Key>
+            <PropertyRef Name="Dispatch_Number" />
+          </Key>
+          <Property Name="Dispatch_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="query_customer_number" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="customer_name" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="customer_address_1" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="customer_address_2" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="customer_address_3" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="customer_city" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="customer_state" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="customer_zip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="contact_name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="contact_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employee_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="employee_name" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="call_type" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="critical_verbage" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="critical_code" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="entitlement" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="region_rdb" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="district_rdb" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="branch_rdb" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="stop_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="stop_code_indicator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="excuse_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="wang_serial_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="wang_model_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mfg_serial_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="mfg_model_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="system_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="call_received_date" Type="DateTime" Precision="0" />
+          <Property Name="call_deferred_date" Type="DateTime" Precision="0" />
+          <Property Name="call_accepted_date" Type="DateTime" Precision="0" />
+          <Property Name="call_arrived_date" Type="DateTime" Precision="0" />
+          <Property Name="projected_arrival_date" Type="DateTime" Precision="0" />
+          <Property Name="call_dispatched_date" Type="DateTime" Precision="0" />
+          <Property Name="call_last_modified_date" Type="DateTime" Precision="0" />
+          <Property Name="call_status" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="call_error_flag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="awp_code" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="business_association_type" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="oem_incident_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="plan_code" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="extended_coverage" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="area_rdb" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SLA_Desc" Type="Byte" />
+          <Property Name="SLA_Color" Type="Byte" />
+          <Property Name="symptom_code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Coverage_code" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="datetimeloaded" Type="DateTime" Precision="3" />
+          <Property Name="timezone" Type="Decimal" Precision="4" Scale="1" />
+          <Property Name="actiongrp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="source" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="vendor_callnbr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="stop_code_upd_dt" Type="DateTime" Precision="0" />
+          <Property Name="territory" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="whse" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="whsedist" Type="Int32" />
+          <Property Name="SRS_sched" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="SKU" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="install_qty" Type="Int32" />
+          <Property Name="sched_window_start_dt" Type="DateTime" Precision="0" />
+          <Property Name="sched_window_end_dt" Type="DateTime" Precision="0" />
+          <Property Name="cust_syscode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="customer_lat" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="customer_long" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="onsite_radius" Type="Int32" />
+          <Property Name="avg_repair_time" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="csr_cell_phone" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="auto_onsite" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="call_closed_date" Type="DateTime" Precision="0" />
+          <Property Name="last_call_Closed" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="total_activities" Type="Int32" />
+          <Property Name="ready_date" Type="DateTime" Precision="0" />
+          <Property Name="cust_sub_div" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="customer_country" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Purchase_Order" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="customer_part_master" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="cust_alt_ref" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="required_skills" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="initial_eta_dtm" Type="DateTime" Precision="0" />
+          <Property Name="contact_altphone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="altcontact_1stphone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="altcontact_2ndphone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="altcontact_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="email_addr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="dtproperty">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="property" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="objectid" Type="Int32" />
+          <Property Name="property" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="uvalue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="lvalue" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LogCrit" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LogDTM" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RefNum" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LogMsg" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OpenWaybill">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNum" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PartSeq" Type="Int32" Nullable="false" />
+          <Property Name="ComDate" Type="DateTime" Precision="0" />
+          <Property Name="Region" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Area" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="District" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Branch" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Territory" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="OEMIncNo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="CustCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CustName" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="Subdivision" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PartRtnd" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PartRtndSN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PartNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OrgQty" Type="Int32" />
+          <Property Name="UsedQty" Type="Int32" />
+          <Property Name="ReturnQty" Type="Int32" />
+          <Property Name="ActionCode" Type="Int32" />
+          <Property Name="NotReturnCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ReturnWayBill" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ReturnCarrier" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ReturnDate" Type="DateTime" Precision="0" />
+          <Property Name="RspCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateFlag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="LastWebUpdate" Type="DateTime" Precision="0" />
+          <Property Name="CSRAsgnExcl" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ShowOnCSRPortal" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="RtnWyblDispos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateTimeLoaded" Type="DateTime" Precision="0" />
+          <Property Name="Source" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CustPartRef" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ResponseCode">
+          <Key>
+            <PropertyRef Name="RspCode" />
+          </Key>
+          <Property Name="RspCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Inactive" Type="Boolean" />
+          <Property Name="Tracking" Type="Int16" />
+        </EntityType>
+        <EntityType Name="WyblDisposCode">
+          <Key>
+            <PropertyRef Name="WyblDisposCode1" />
+          </Key>
+          <Property Name="WyblDisposCode1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_csr_org">
+          <Key>
+            <PropertyRef Name="csrcode" />
+          </Key>
+          <Property Name="csrcode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="warehouse" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="branch" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="regionrdb" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="districtrdb" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="areardb" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="OneviewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="calls" EntityType="Self.call" />
+          <EntitySet Name="dtproperties" EntityType="Self.dtproperty" />
+          <EntitySet Name="Logs" EntityType="Self.Log" />
+          <EntitySet Name="OpenWaybills" EntityType="Self.OpenWaybill" />
+          <EntitySet Name="ResponseCodes" EntityType="Self.ResponseCode" />
+          <EntitySet Name="WyblDisposCodes" EntityType="Self.WyblDisposCode" />
+          <EntitySet Name="tbl_csr_org" EntityType="Self.tbl_csr_org" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OneviewModelStoreContainer" CdmEntityContainer="OneviewEntities">
+          <EntitySetMapping Name="calls">
+            <EntityTypeMapping TypeName="OneviewModel.call">
+              <MappingFragment StoreEntitySet="calls">
+                <ScalarProperty Name="Dispatch_Number" ColumnName="Dispatch_Number" />
+                <ScalarProperty Name="customer_number" ColumnName="customer_number" />
+                <ScalarProperty Name="query_customer_number" ColumnName="query_customer_number" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="customer_address_1" ColumnName="customer_address_1" />
+                <ScalarProperty Name="customer_address_2" ColumnName="customer_address_2" />
+                <ScalarProperty Name="customer_address_3" ColumnName="customer_address_3" />
+                <ScalarProperty Name="customer_city" ColumnName="customer_city" />
+                <ScalarProperty Name="customer_state" ColumnName="customer_state" />
+                <ScalarProperty Name="customer_zip" ColumnName="customer_zip" />
+                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
+                <ScalarProperty Name="contact_phone" ColumnName="contact_phone" />
+                <ScalarProperty Name="employee_number" ColumnName="employee_number" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="call_type" ColumnName="call_type" />
+                <ScalarProperty Name="critical_verbage" ColumnName="critical_verbage" />
+                <ScalarProperty Name="critical_code" ColumnName="critical_code" />
+                <ScalarProperty Name="entitlement" ColumnName="entitlement" />
+                <ScalarProperty Name="region_rdb" ColumnName="region_rdb" />
+                <ScalarProperty Name="district_rdb" ColumnName="district_rdb" />
+                <ScalarProperty Name="branch_rdb" ColumnName="branch_rdb" />
+                <ScalarProperty Name="stop_code" ColumnName="stop_code" />
+                <ScalarProperty Name="stop_code_indicator" ColumnName="stop_code_indicator" />
+                <ScalarProperty Name="excuse_code" ColumnName="excuse_code" />
+                <ScalarProperty Name="wang_serial_number" ColumnName="wang_serial_number" />
+                <ScalarProperty Name="wang_model_number" ColumnName="wang_model_number" />
+                <ScalarProperty Name="mfg_serial_number" ColumnName="mfg_serial_number" />
+                <ScalarProperty Name="mfg_model_number" ColumnName="mfg_model_number" />
+                <ScalarProperty Name="system_number" ColumnName="system_number" />
+                <ScalarProperty Name="call_received_date" ColumnName="call_received_date" />
+                <ScalarProperty Name="call_deferred_date" ColumnName="call_deferred_date" />
+                <ScalarProperty Name="call_accepted_date" ColumnName="call_accepted_date" />
+                <ScalarProperty Name="call_arrived_date" ColumnName="call_arrived_date" />
+                <ScalarProperty Name="projected_arrival_date" ColumnName="projected_arrival_date" />
+                <ScalarProperty Name="call_dispatched_date" ColumnName="call_dispatched_date" />
+                <ScalarProperty Name="call_last_modified_date" ColumnName="call_last_modified_date" />
+                <ScalarProperty Name="call_status" ColumnName="call_status" />
+                <ScalarProperty Name="call_error_flag" ColumnName="call_error_flag" />
+                <ScalarProperty Name="awp_code" ColumnName="awp_code" />
+                <ScalarProperty Name="business_association_type" ColumnName="business_association_type" />
+                <ScalarProperty Name="oem_incident_number" ColumnName="oem_incident_number" />
+                <ScalarProperty Name="plan_code" ColumnName="plan_code" />
+                <ScalarProperty Name="extended_coverage" ColumnName="extended_coverage" />
+                <ScalarProperty Name="area_rdb" ColumnName="area_rdb" />
+                <ScalarProperty Name="SLA_Desc" ColumnName="SLA_Desc" />
+                <ScalarProperty Name="SLA_Color" ColumnName="SLA_Color" />
+                <ScalarProperty Name="symptom_code" ColumnName="symptom_code" />
+                <ScalarProperty Name="Coverage_code" ColumnName="Coverage_code" />
+                <ScalarProperty Name="datetimeloaded" ColumnName="datetimeloaded" />
+                <ScalarProperty Name="timezone" ColumnName="timezone" />
+                <ScalarProperty Name="actiongrp" ColumnName="actiongrp" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="vendor_callnbr" ColumnName="vendor_callnbr" />
+                <ScalarProperty Name="stop_code_upd_dt" ColumnName="stop_code_upd_dt" />
+                <ScalarProperty Name="territory" ColumnName="territory" />
+                <ScalarProperty Name="whse" ColumnName="whse" />
+                <ScalarProperty Name="whsedist" ColumnName="whsedist" />
+                <ScalarProperty Name="SRS_sched" ColumnName="SRS_sched" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="install_qty" ColumnName="install_qty" />
+                <ScalarProperty Name="sched_window_start_dt" ColumnName="sched_window_start_dt" />
+                <ScalarProperty Name="sched_window_end_dt" ColumnName="sched_window_end_dt" />
+                <ScalarProperty Name="cust_syscode" ColumnName="cust_syscode" />
+                <ScalarProperty Name="customer_lat" ColumnName="customer_lat" />
+                <ScalarProperty Name="customer_long" ColumnName="customer_long" />
+                <ScalarProperty Name="onsite_radius" ColumnName="onsite_radius" />
+                <ScalarProperty Name="avg_repair_time" ColumnName="avg_repair_time" />
+                <ScalarProperty Name="csr_cell_phone" ColumnName="csr_cell_phone" />
+                <ScalarProperty Name="auto_onsite" ColumnName="auto_onsite" />
+                <ScalarProperty Name="call_closed_date" ColumnName="call_closed_date" />
+                <ScalarProperty Name="last_call_Closed" ColumnName="last_call_Closed" />
+                <ScalarProperty Name="total_activities" ColumnName="total_activities" />
+                <ScalarProperty Name="ready_date" ColumnName="ready_date" />
+                <ScalarProperty Name="cust_sub_div" ColumnName="cust_sub_div" />
+                <ScalarProperty Name="customer_country" ColumnName="customer_country" />
+                <ScalarProperty Name="Purchase_Order" ColumnName="Purchase_Order" />
+                <ScalarProperty Name="customer_part_master" ColumnName="customer_part_master" />
+                <ScalarProperty Name="cust_alt_ref" ColumnName="cust_alt_ref" />
+                <ScalarProperty Name="required_skills" ColumnName="required_skills" />
+                <ScalarProperty Name="initial_eta_dtm" ColumnName="initial_eta_dtm" />
+                <ScalarProperty Name="contact_altphone" ColumnName="contact_altphone" />
+                <ScalarProperty Name="altcontact_1stphone" ColumnName="altcontact_1stphone" />
+                <ScalarProperty Name="altcontact_2ndphone" ColumnName="altcontact_2ndphone" />
+                <ScalarProperty Name="altcontact_name" ColumnName="altcontact_name" />
+                <ScalarProperty Name="email_addr" ColumnName="email_addr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dtproperties">
+            <EntityTypeMapping TypeName="OneviewModel.dtproperty">
+              <MappingFragment StoreEntitySet="dtproperties">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="objectid" ColumnName="objectid" />
+                <ScalarProperty Name="property" ColumnName="property" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="uvalue" ColumnName="uvalue" />
+                <ScalarProperty Name="lvalue" ColumnName="lvalue" />
+                <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="OneviewModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="rid" ColumnName="rid" />
+                <ScalarProperty Name="LogType" ColumnName="LogType" />
+                <ScalarProperty Name="LogCrit" ColumnName="LogCrit" />
+                <ScalarProperty Name="LogDTM" ColumnName="LogDTM" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="LogMsg" ColumnName="LogMsg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpenWaybills">
+            <EntityTypeMapping TypeName="OneviewModel.OpenWaybill">
+              <MappingFragment StoreEntitySet="OpenWaybills">
+                <ScalarProperty Name="rid" ColumnName="rid" />
+                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+                <ScalarProperty Name="PartSeq" ColumnName="PartSeq" />
+                <ScalarProperty Name="ComDate" ColumnName="ComDate" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="Territory" ColumnName="Territory" />
+                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="OEMIncNo" ColumnName="OEMIncNo" />
+                <ScalarProperty Name="CustCode" ColumnName="CustCode" />
+                <ScalarProperty Name="CustName" ColumnName="CustName" />
+                <ScalarProperty Name="Subdivision" ColumnName="Subdivision" />
+                <ScalarProperty Name="PartRtnd" ColumnName="PartRtnd" />
+                <ScalarProperty Name="PartRtndSN" ColumnName="PartRtndSN" />
+                <ScalarProperty Name="PartNo" ColumnName="PartNo" />
+                <ScalarProperty Name="OrgQty" ColumnName="OrgQty" />
+                <ScalarProperty Name="UsedQty" ColumnName="UsedQty" />
+                <ScalarProperty Name="ReturnQty" ColumnName="ReturnQty" />
+                <ScalarProperty Name="ActionCode" ColumnName="ActionCode" />
+                <ScalarProperty Name="NotReturnCode" ColumnName="NotReturnCode" />
+                <ScalarProperty Name="ReturnWayBill" ColumnName="ReturnWayBill" />
+                <ScalarProperty Name="ReturnCarrier" ColumnName="ReturnCarrier" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="RspCode" ColumnName="RspCode" />
+                <ScalarProperty Name="UpdateFlag" ColumnName="UpdateFlag" />
+                <ScalarProperty Name="LastWebUpdate" ColumnName="LastWebUpdate" />
+                <ScalarProperty Name="CSRAsgnExcl" ColumnName="CSRAsgnExcl" />
+                <ScalarProperty Name="ShowOnCSRPortal" ColumnName="ShowOnCSRPortal" />
+                <ScalarProperty Name="RtnWyblDispos" ColumnName="RtnWyblDispos" />
+                <ScalarProperty Name="DateTimeLoaded" ColumnName="DateTimeLoaded" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="CustPartRef" ColumnName="CustPartRef" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResponseCodes">
+            <EntityTypeMapping TypeName="OneviewModel.ResponseCode">
+              <MappingFragment StoreEntitySet="ResponseCodes">
+                <ScalarProperty Name="RspCode" ColumnName="RspCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="Tracking" ColumnName="Tracking" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WyblDisposCodes">
+            <EntityTypeMapping TypeName="OneviewModel.WyblDisposCode">
+              <MappingFragment StoreEntitySet="WyblDisposCodes">
+                <ScalarProperty Name="WyblDisposCode1" ColumnName="WyblDisposCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_csr_org">
+            <EntityTypeMapping TypeName="OneviewModel.tbl_csr_org">
+              <MappingFragment StoreEntitySet="tbl_csr_org">
+                <ScalarProperty Name="csrcode" ColumnName="csrcode" />
+                <ScalarProperty Name="warehouse" ColumnName="warehouse" />
+                <ScalarProperty Name="branch" ColumnName="branch" />
+                <ScalarProperty Name="regionrdb" ColumnName="regionrdb" />
+                <ScalarProperty Name="districtrdb" ColumnName="districtrdb" />
+                <ScalarProperty Name="areardb" ColumnName="areardb" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
